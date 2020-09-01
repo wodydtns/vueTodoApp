@@ -16,10 +16,12 @@ export default {
   },
   methods:{
     addTodo:function(){
-      
+      if(this.newTodoItem !==''){
+        var obj = {completed:false,item:this.newTodoItem};
       //저장 로직
-      localStorage.setItem(this.newTodoItem,this.newTodoItem);
+      localStorage.setItem(this.newTodoItem,JSON.stringify(obj));
       this.clearInput();
+      }
     },
     clearInput:function(){
       this.newTodoItem='';
