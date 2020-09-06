@@ -1,6 +1,7 @@
 <template>
   <div>
-    <ul>
+      
+    <transition-group name="list" tag="ul">
       <li v-for="(todoItem,index) in propsdata" v-bind:key="todoItem.item" class="shadow">
         <i class="checkBtn fas fa-check" v-bind="{checkBtnCompleted:todoItem.completed}" @click="toggleComplete(todoItem,index)"></i>
         <span v-bind:class="{textCompleted:todoItem.completed}">{{todoItem.item}}</span>
@@ -8,7 +9,7 @@
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -17,16 +18,12 @@ export default {
   props:['propsdata'],
   methods:{
     removeTodo:function(todoItem,index){
-      console.log(todoItem,index);
-      localStorage.removeItem(todoItem);
-      this.todoItems.splice(index,1);
+      this.$emit('removeItem',todoItem,index);
+      
     },
     toggleComplete:function(todoItem,index){
-      console.log(index);
-      localStorage.removeItem(todoItem.item);
-      todoItem.completed = !todoItem.completed;
+      this.$emit('toggleItem',todoItem,index)
       
-      localStorage.setItem(todoItem.item,JSON.stringify(todoItem));
     }
   },
   
@@ -64,5 +61,15 @@ li{
 .removeBtn{
   margin-left: auto;
   color:#de4343;
+}
+
+/* 리스트 item transition */
+
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
