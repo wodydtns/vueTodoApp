@@ -3,7 +3,7 @@
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
     <TodoList v-bind:propsdata="todoItems"></TodoList>
-    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index,1);
     }, */
-    toggleOneItem(todoItem,index){
+    /* toggleOneItem(todoItem,index){
       console.log(index);
       //todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed;
@@ -39,7 +39,7 @@ export default {
     clearAllItems(){
        localStorage.clear();
        this.todoItems =[];
-    }
+    } */
   },
   components:{
     // 'TodoHeader':TodoHeader, 이름이 동일 -> 축약 가능
